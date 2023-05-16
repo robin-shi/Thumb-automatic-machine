@@ -91,11 +91,11 @@ int main(void)
   /* USER CODE BEGIN 2 */
   HAL_TIM_PWM_Start(&htim1,TIM_CHANNEL_1);
   HAL_TIM_PWM_Start(&htim1,TIM_CHANNEL_2);
-  int Points[17]={0,30,70,110,130,175,210,245,290,330,365,395,435,475,505,540,580};
+  int Points[17]={0,35,70,110,130,175,210,245,290,330,365,395,435,475,510,545,585};
   //              0, 1, 2, 3 , 4 , 5 , 6 , 7 , 8 , 9 , 10, 11, 12, 13, 14, 15, 16
-  int StartPoint=1080;
-  htim1.Instance->CCR1=StartPoint+Points[P2_];
-  HAL_Delay(1000);
+  int StartPoint=1060;
+  htim1.Instance->CCR1=StartPoint+Points[P2__];
+  HAL_Delay(2000);
 /*   htim1.Instance->CCR1=StartPoint+Points[P3_];
   HAL_Delay(2000); */
   /* USER CODE END 2 */
@@ -107,23 +107,39 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    Note Notes[49]={{P6_,I8_},{P5_,I16},{P3_,I8},{P2_,I8},{P1_,I2},{P3_,I8_},{P2_,I16},{P1_,I8},{P6,I8},{P5,I2},\
+    Note CangHaiYiShengXiao[49]={{P6_,I8_},{P5_,I16},{P3_,I8},{P2_,I8},{P1_,I2},{P3_,I8_},{P2_,I16},{P1_,I8},{P6,I8},{P5,I2},\
     {P5,I8_},{P6,I16},{P5,I8},{P6,I8},{P1_,I8_},{P2_,I16},{P3_,I8},{P5_,I8},{P6_,I8_},{P5_,I16},{P3_,I16},{P2_,I16},{P1_,I8},{P2_,I2},\
     {P6_,I8},{P6_,I16},{P5_,I16},{P3_,I8},{P2_,I8},{P1_,I2},{P3_,I8_},{P2_,I16},{P1_,I8},{P6,I8},{P5,I2},
     {P5,I8_},{P6,I16},{P5,I8},{P6,I8},{P1_,I8_},{P2_,I16},{P3_,I8},{P5_,I8},{P6_,I8_},{P5_,I16},{P3_,I16},{P2_,I16},{P1_,I8},{P2_,I2}};//沧海一声笑
-    //Note Notes[17]={{P1,I4},{P2,I4},{P3,I4},{P4,I4},{P5,I4},{P6,I4},{P7,I4},{P1_,I4},{P2_,I4},{P3_,I4},{P4_,I4},{P5_,I4},{P6_,I4},{P7_,I4},{P1__,I4},{P2__,I4},{P3__,I4}};
-    int scal=1;
+
+    Note NvErQing[90]={{P5,I8},{P6,I8},{P1_,I4_},{P2_,I8},{P3_,I8},{P7,I8},{P6,I16},{P7,I16},{P5,I8},{P6,I2},//鸳鸯双皙蝶双飞
+    {P1_,I8},{P2_,I8},{P3_,I4},{P5_,I8},{P6_,I8},{P1_,I8},{P2_,I16},{P3_,I16},{P4_,I8},{P3_,I2},//满园春色惹人醉
+    {P3_,I8},{P5_,I8},{P6_,I4_},{P5_,I8},{P6_,I4},{P6,I8},{P3_,I8},{P2_,I4_},{P1_,I8},{P2_,I4},//悄悄问圣僧女儿美不美
+    {P3_,I4},{P5,I4_},{P6,I8},{P7,I8},{P3_,I4},{P6,I8},{P1_,I2},//女儿美不美
+    {P5_,I8},{P5_,I8},{P6_,I8},{P1__,I8},{P7_,I4},{P6_,I16},{P5_,I16},{P6_,I2},//说什么王权富贵
+    {P5_,I8},{P5_,I8},{P6_,I8},{P1__,I8},{P7_,I4},{P6_,I16},{P5_,I16},{P3_,I2},///怕什么戒律清规
+    {P5,I8},{P6,I8},{P1_,I4_},{P2_,I8},{P3_,I8},{P7,I8},{P6,I16},{P7,I16},{P5,I8},{P6,I2},//只愿天长地久
+    {P1_,I8},{P2_,I8},{P3_,I4},{P5_,I8},{P6_,I8},{P1_,I8},{P2_,I16},{P3_,I16},{P4_,I8},{P3_,I2},//与我意中人儿紧相随
+    {P3_,I8},{P5_,I8},{P6_,I4_},{P5_,I8},{P6_,I4},{P6,I8},{P3_,I8},{P2_,I4_},{P1_,I8},{P2_,I4},//爱恋伊爱恋伊
+    {P3_,I4},{P5,I4_},{P6,I8},{P7,I8},{P3_,I4},{P6,I8},{P1_,I2},//愿今生常相随
+    };
+
+    //Note ForAlice[9]={{P3__,I16},{P1__,I16},{P3__,I16},{P1__,I16},{P3__,I16},{P7_,I16},{P2__,I16},{P1__,I16},{P6_,I16}};
+    Note Yinjie[17]={{P1,I4},{P2,I4},{P3,I4},{P4,I4},{P5,I4},{P6,I4},{P7,I4},{P1_,I4},{P2_,I4},{P3_,I4},{P4_,I4},{P5_,I4},{P6_,I4},{P7_,I4},{P1__,I4},{P2__,I4},{P3__,I4}};//音阶
+    double scal=0.8;
     int lastInterval=1000;
-  for(int i=0;i<sizeof(Notes)/sizeof(Note);i++)
+    int NotesLength=sizeof(NvErQing)/sizeof(Note);
+    Note * Playing=NvErQing;
+  for(int i=0;i<NotesLength;i++)
     {
-      htim1.Instance->CCR1=StartPoint+Points[Notes[i].pitchMap];
+      htim1.Instance->CCR1=StartPoint+Points[Playing[i].pitchMap];
       HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_13);
       HAL_Delay(lastInterval-20);
       HAL_GPIO_WritePin(GPIOA,GPIO_PIN_9,GPIO_PIN_SET);
-      HAL_Delay(20);
+      HAL_Delay(18);
       HAL_GPIO_WritePin(GPIOA,GPIO_PIN_9,GPIO_PIN_RESET);
       HAL_Delay(20);
-      lastInterval=Notes[i].interval*0.7;
+      lastInterval=Playing[i].interval*scal;
     }
 
   }
